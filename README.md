@@ -1,4 +1,4 @@
 practice
 ========
 
-different algorithms and data structures
+Different algorithms and data structures I've been coding for practice.
