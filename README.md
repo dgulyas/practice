@@ -1,4 +1,4 @@
 practice
 ========
 
-algorithms and data structures
+different algorithms and data structures
