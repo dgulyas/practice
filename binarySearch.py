@@ -26,12 +26,12 @@ for i in range(20):
 	a.append(i)
 
 for i in range(21):
-	print bSearch(a,i),
+	print(bSearch(a,i))
 
-print ""
-print bSearch([],5) == -1
-print bSearch([1],1) == 0
-print bSearch([1],5) == -1
-print bSearch([1,2],5) == -1
-print bSearch([1,2],1) == 0
-print bSearch([1,2],2) == 1
+print()
+print(bSearch([],5) == -1)
+print(bSearch([1],1) == 0)
+print(bSearch([1],5) == -1)
+print(bSearch([1,2],5) == -1)
+print(bSearch([1,2],1) == 0)
+print(bSearch([1,2],2) == 1)

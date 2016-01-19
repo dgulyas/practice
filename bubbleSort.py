@@ -13,12 +13,16 @@ def bubbleSort(a):
 	
 a = [9,8,7,6,5,4]
 bubbleSort(a)
-print a
+print(a)
+
+a = [1,2,1,2,1,2]
+bubbleSort(a)
+print(a)
 
 a = [1]
 bubbleSort(a)
-print a
+print(a)
 
 a = []
 bubbleSort(a)
-print a
+print(a)

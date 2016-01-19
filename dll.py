@@ -48,17 +48,17 @@ class dLinkedList:
 	def pForward(self):
 		pointer = self.head
 		while pointer:
-			print pointer.data, 
+			print(pointer.data, end="") 
 			pointer = pointer.next
-		print ""
+		print()
 	
 	#print the list starting at the back
 	def pBackward(self):
 		pointer = self.tail
 		while pointer:
-			print pointer.data, 
+			print(pointer.data, end="") 
 			pointer = pointer.prev
-		print ""
+		print()
 	
 	#returns true if the list contains the target value, otherwise false
 	def contains(self, target):
@@ -78,41 +78,42 @@ class dLinkedList:
 			pointer = pointer.next
 		return n
 
-		
+
+print("build the list")		
 list = dLinkedList()
 for i in range(8):
 	list.add(i) #test add
 
 list.pForward() #test pForward
 list.pBackward()#test pBackward
-print"remove 4"
+print("remove 4")
 list.remove(4) #test remove and its corner cases
 list.pForward()
 list.pBackward()
-print"remove 0"
+print("remove 0")
 list.remove(0)
 list.pForward()
 list.pBackward()
-print"remove 7"
+print("remove 7")
 list.remove(7)
 list.pForward()
 list.pBackward()
-print"remove 9"
+print("remove 9")
 list.remove(9)
 list.pForward()
 list.pBackward()
 
-print "contains 1:", list.contains(1) #test contains and its corner cases
-print "contains 6:", list.contains(6)
-print "contains 3:", list.contains(3)
-print "contains 9:", list.contains(9)
+print("contains 1:", list.contains(1)) #test contains and its corner cases
+print("contains 6:", list.contains(6))
+print("contains 3:", list.contains(3))
+print("contains 9:", list.contains(9))
 
-print "size:",list.size() #test size
+print("size:",list.size()) #test size
 
 list.remove(1) #empty the list
 list.remove(2)
 list.remove(3)
 list.remove(5)
 list.remove(6)
-print "remove all nodes"
-print "size:",list.size() #test to see if it's empty
+print("remove all nodes")
+print("size:",list.size()) #test to see if it's empty

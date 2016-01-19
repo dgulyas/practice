@@ -43,25 +43,29 @@ class linkedList:
 	def printList(self):
 		pointer = self.head
 		while pointer:
-			print pointer.data, 
+			print(pointer.data, end="")
 			pointer = pointer.next
-		print ""
+		print()
 	
-
+print("build the list")	
 list = linkedList()
 for i in range(8):
 	list.add(i)
 
 list.printList()
+print("remove 4")
 list.remove(4)
 list.printList()
+print("remove 7")
 list.remove(7)
 list.printList()
+print("remove 0")
 list.remove(0)
 list.printList()
-list.remove(20)
+print("remove 9")
+list.remove(9)
 list.printList()
-print "contains 1:",list.contains(1)
-print "contains 6:",list.contains(6)
-print "contains 3:",list.contains(3)
-print "contains 4:",list.contains(4)
+print("contains 1:",list.contains(1))
+print("contains 6:",list.contains(6))
+print("contains 3:",list.contains(3))
+print("contains 4:",list.contains(4))
