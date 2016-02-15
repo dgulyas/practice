@@ -1,0 +1,8 @@
+c:\users\dgulyas\documents\visual studio 2015\Projects\pointStore\pointStore\bin\Debug\pointStore.exe.config
+c:\users\dgulyas\documents\visual studio 2015\Projects\pointStore\pointStore\bin\Debug\pointStore.exe
+c:\users\dgulyas\documents\visual studio 2015\Projects\pointStore\pointStore\bin\Debug\pointStore.pdb
+c:\users\dgulyas\documents\visual studio 2015\Projects\pointStore\pointStore\obj\Debug\pointStore.exe
+c:\users\dgulyas\documents\visual studio 2015\Projects\pointStore\pointStore\obj\Debug\pointStore.pdb
+C:\Users\dgulyas\repos\practice\pointStore\pointStore\bin\Debug\pointStore.exe.config
+C:\Users\dgulyas\repos\practice\pointStore\pointStore\obj\Debug\pointStore.exe
+C:\Users\dgulyas\repos\practice\pointStore\pointStore\obj\Debug\pointStore.pdb
