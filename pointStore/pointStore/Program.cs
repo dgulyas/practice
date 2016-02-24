@@ -14,7 +14,14 @@ The solution makes use of two classes.
 
 Point: Contains the coordinates and value of a given point.
 
-Hold: This class follows the Composite design pattern and has two modes.
+TODO make this description not suck.
+Hold: This class is assigned an area of the plane and contains all the points
+in that area. When it contains to many points it "splits" its area into 4 new
+instances of the class and moves all its points into those new instances. It
+then contains no points and
+
+
+follows the Composite design pattern and has two modes.
 In the first mode it acts as a list of points. When a point is added it checks
 if contains too many points and if it does it switches to the second mode. The
 second mode is a container that points to 4 other instances of Hold. This forms
@@ -42,15 +49,16 @@ namespace pointStore
 		{
 			var hold = new Hold(1000, 0, 1000, 0, 0, 10);
 			Random rnd = new Random(10);
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 250; i++)
 			{
-				var tmpPoint = new Point { Value = rnd.Next(1, 1000000), X = rnd.Next(0, 10001), Y = rnd.Next(0, 10001) };
+				var tmpPoint = new Point { Value = rnd.Next(1, 100000), X = rnd.Next(0, 10001), Y = rnd.Next(0, 10001) };
 				hold.AddPoint(tmpPoint);
 			}
 
 			hold.PrintData();
 
 			Console.WriteLine();
+			Console.ReadLine();
 		}
 	}
 }
