@@ -165,19 +165,28 @@ namespace pointStore
 		//are then divided among the four new holds.
 		private void Split()
 		{
-			Holds = new List<Hold>();
-			var xMiddle = (LeftBoundry + RightBoundry) / 2;
-			var yMiddle = (BottomBoundry + TopBoundry) / 2;
-			Holds.Add(new Hold(yMiddle, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
-			Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, xMiddle + 1, Level + 1, MaxPoints));
-			Holds.Add(new Hold(TopBoundry, yMiddle + 1, xMiddle + 1, LeftBoundry, Level + 1, MaxPoints));
-			Holds.Add(new Hold(TopBoundry, yMiddle + 1, RightBoundry, xMiddle + 1, Level + 1, MaxPoints));
+			CreateSubHolds();
 			foreach (var point in Points)
 			{
 				DepositPoint(point);
 			}
 
 			Points = null;
+		}
+
+		//Doesn't this look fun to unit test....
+		public void CreateSubHolds()
+		{
+			Holds = new List<Hold>();
+			var xMiddle = (LeftBoundry + RightBoundry) / 2;
+			var yMiddle = (BottomBoundry + TopBoundry) / 2;
+			var xMiddlePlusOne = xMiddle + 1 > RightBoundry ? RightBoundry : xMiddle + 1;
+			var yMiddlePlusOne = yMiddle + 1 > TopBoundry ? TopBoundry : yMiddle + 1;
+
+			Holds.Add(new Hold(yMiddle, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
+			Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
+			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, xMiddle, LeftBoundry, Level + 1, MaxPoints));
+			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
 		}
 
 		//This function is called when we need to send a point to one of the sub holds.
@@ -206,7 +215,6 @@ namespace pointStore
 				Console.Write(printString);
 			}
 		}
-
 
 	}
 }

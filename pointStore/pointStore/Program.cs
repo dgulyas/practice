@@ -47,18 +47,18 @@ namespace pointStore
 	{
 		static void Main(string[] args)
 		{
-			var hold = new Hold(1000, 0, 1000, 0, 0, 10);
-			Random rnd = new Random(10);
-			for (int i = 0; i < 250; i++)
-			{
-				var tmpPoint = new Point { Value = rnd.Next(1, 100000), X = rnd.Next(0, 10001), Y = rnd.Next(0, 10001) };
-				hold.AddPoint(tmpPoint);
-			}
+			//var hold = new Hold(1000, 0, 1000, 0, 0, 10);
+			//Random rnd = new Random(10);
+			//for (int i = 0; i < 250; i++)
+			//{
+			//	var tmpPoint = new Point { Value = rnd.Next(1, 100000), X = rnd.Next(0, 10001), Y = rnd.Next(0, 10001) };
+			//	hold.AddPoint(tmpPoint);
+			//}
 
-			hold.PrintData();
+			//hold.PrintData();
 
-			Console.WriteLine();
-			Console.ReadLine();
+			//Console.WriteLine();
+			//Console.ReadLine();
 		}
 	}
 }

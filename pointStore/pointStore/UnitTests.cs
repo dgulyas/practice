@@ -24,16 +24,30 @@ namespace pointStore
 		public void holdStoresPointsTest()
 		{
 			var hold = new Hold(100, 0, 100, 0, 0, 4);
-			var point = new Point { X = 10, Y = 11, Value = 86 };
 
 			Assert.IsTrue(hold.StoresPoints);
-
-			//when we add the 5th point the hold should split
-			for (int i = 0; i < 5; i++)
-			{
-				hold.AddPoint(point);
-			}
+			hold.AddPoint(new Point { X = 10, Y = 11, Value = 86 });
+			hold.AddPoint(new Point { X = 20, Y = 70, Value = 86 });
+			hold.AddPoint(new Point { X = 30, Y = 11, Value = 86 });
+			hold.AddPoint(new Point { X = 70, Y = 70, Value = 86 });
+			hold.AddPoint(new Point { X = 80, Y = 11, Value = 86 }); //This point causes the hold to split.
 			Assert.IsFalse(hold.StoresPoints);
+		}
+
+		[Test]
+		public void CreateSubHoldsTest()
+		{
+			var hold = new Hold(100, 0, 100, 0, 0);
+			hold.CreateSubHolds();
+
+			Assert.AreEqual(1,
+				hold.Holds.Count(h => h.TopBoundry == 100 && h.BottomBoundry == 51 && h.RightBoundry == 100 && h.LeftBoundry == 51));
+			Assert.AreEqual(1,
+				hold.Holds.Count(h => h.TopBoundry == 100 && h.BottomBoundry == 51 && h.RightBoundry == 50 && h.LeftBoundry == 0));
+			Assert.AreEqual(1,
+				hold.Holds.Count(h => h.TopBoundry == 50 && h.BottomBoundry == 0 && h.RightBoundry == 100 && h.LeftBoundry == 51));
+			Assert.AreEqual(1,
+				hold.Holds.Count(h => h.TopBoundry == 50 && h.BottomBoundry == 0 && h.RightBoundry == 50 && h.LeftBoundry == 0));
 		}
 	}
 }
