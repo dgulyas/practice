@@ -11,8 +11,12 @@ namespace pointStore
 
 		//There are two modes for this class. Either is contains points, or it points to 4
 		//instances of this class. If StoresPoints is true, this instance is storing points.
-		//If StoresPoints if false it must point to 4 other Holds.
+		//If StoresPoints if false it must point to n other Holds (n <= 4).
 		public bool StoresPoints => Points != null;
+
+		public bool HoldIsAHorizontalLine => TopBoundry == BottomBoundry;
+		public bool HoldIsAVerticalLine => RightBoundry == LeftBoundry;
+		public bool HoldIsAPoint => HoldIsAHorizontalLine && HoldIsAVerticalLine;
 
 		public int Level;
 
@@ -31,6 +35,12 @@ namespace pointStore
 			if (tb < bb || rb < lb)
 			{
 				throw new Exception("The holds boundaries are wrong.");
+			}
+
+			if (maxPoints < 1)
+			{
+				throw new Exception("A hold must be able to hold more than 0 points.");
+				//otherwise adding a point will cause an infinite loop.
 			}
 
 			TopBoundry = tb;
@@ -132,6 +142,19 @@ namespace pointStore
 			return null;
 		}
 
+		public void print(string s, bool newLine = true)
+		{
+			var printString = $"{new string(' ', Level * 1)}{s}";
+			if (newLine)
+			{
+				Console.WriteLine(printString);
+			}
+			else
+			{
+				Console.Write(printString);
+			}
+		}
+
 		//Returns true if this hold is fully contained in this box
 		private bool IsContainedInside(Box box)
 		{
@@ -165,6 +188,11 @@ namespace pointStore
 		//are then divided among the four new holds.
 		private void Split()
 		{
+			if (HoldIsAPoint)
+			{
+				return; //if we split a point, we get stuck in an infinite loop
+			}
+
 			CreateSubHolds();
 			foreach (var point in Points)
 			{
@@ -175,13 +203,29 @@ namespace pointStore
 		}
 
 		//Doesn't this look fun to unit test....
-		public void CreateSubHolds()
+		private void CreateSubHolds()
 		{
 			Holds = new List<Hold>();
+
 			var xMiddle = (LeftBoundry + RightBoundry) / 2;
 			var yMiddle = (BottomBoundry + TopBoundry) / 2;
 			var xMiddlePlusOne = xMiddle + 1 > RightBoundry ? RightBoundry : xMiddle + 1;
 			var yMiddlePlusOne = yMiddle + 1 > TopBoundry ? TopBoundry : yMiddle + 1;
+
+
+			if (HoldIsAHorizontalLine)
+			{
+				Holds.Add(new Hold(TopBoundry, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
+				Holds.Add(new Hold(TopBoundry, BottomBoundry, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
+				return;
+			}
+
+			if (HoldIsAVerticalLine)
+			{
+				Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, LeftBoundry, Level + 1, MaxPoints));
+				Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, LeftBoundry, Level + 1, MaxPoints));
+				return;
+			}
 
 			Holds.Add(new Hold(yMiddle, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
 			Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
@@ -201,19 +245,6 @@ namespace pointStore
 				}
 			}
 			throw new Exception("A point didn't fit in any of the available holds. Something is broken.");
-		}
-
-		private void print(string s, bool newLine = true)
-		{
-			var printString = $"{new string(' ', Level * 1)}{s}";
-			if (newLine)
-			{
-				Console.WriteLine(printString);
-			}
-			else
-			{
-				Console.Write(printString);
-			}
 		}
 
 	}
