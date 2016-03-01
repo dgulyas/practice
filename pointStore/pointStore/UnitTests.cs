@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 
 namespace pointStore
@@ -108,6 +109,60 @@ namespace pointStore
 			Assert.IsNull(hold.Holds);
 		}
 
-		//need to test that the highest value point is returned
+		[Test]
+		public void LargestPointSinglePoint()
+		{
+			var hold = new Hold(100, 0, 100, 0, 0);
+			var point = new Point { Value = 10, X = 0, Y = 0 };
+			hold.AddPoint(point);
+
+			Assert.AreEqual(point, hold.LargestPoint);
+		}
+
+		[Test]
+		public void LargestPointBasicMultiplePoints()
+		{
+			var hold = new Hold(100, 0, 100, 0, 0);
+			var largestPoint = new Point { Value = 10, X = 0, Y = 0 };
+			hold.AddPoint(new Point { Value = 0, X = 10, Y = 0 });
+			hold.AddPoint(new Point { Value = 1, X = 20, Y = 0 });
+			hold.AddPoint(largestPoint);
+			hold.AddPoint(new Point { Value = 2, X = 30, Y = 0 });
+			hold.AddPoint(new Point { Value = 3, X = 40, Y = 0 });
+
+			Assert.AreEqual(largestPoint, hold.LargestPoint);
+		}
+
+		[Test]
+		public void LargestPointSplitHold()
+		{
+			var hold = new Hold(100, 0, 100, 0, 0, 3);
+			var largestPoint = new Point { Value = 10, X = 70, Y = 70 };
+			hold.AddPoint(largestPoint);
+			hold.AddPoint(new Point { Value = 0, X = 10, Y = 10 });
+			hold.AddPoint(new Point { Value = 1, X = 10, Y = 70 });
+			hold.AddPoint(new Point { Value = 2, X = 70, Y = 10 });
+
+			Assert.AreEqual(largestPoint, hold.LargestPoint);
+		}
+
+		[Test]
+		public void LargestPoint1000Points()
+		{
+			var hold = new Hold(100, 0, 100, 0, 0, 10);
+			var rand = new Random();
+
+			for (int i = 0; i < 999; i++)
+			{
+				hold.AddPoint(new Point { Value = i, X = rand.Next(0, 101), Y = rand.Next(1, 101) });
+			}
+
+			var largestPoint = new Point { Value = 1000, X = rand.Next(0, 101), Y = rand.Next(1, 101) };
+			hold.AddPoint(largestPoint);
+
+			Assert.AreEqual(largestPoint, hold.LargestPoint);
+		}
+
+		//Test GetLargestPointInBox
 	}
 }
