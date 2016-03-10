@@ -122,9 +122,15 @@ namespace pointStore
 							maxValuePoint = possibleLargestPoint;
 						}
 					}
+					return maxValuePoint;
 				}
 				else
 				{
+					if (Points.Count < 1)
+					{
+						return new Point { Value = int.MinValue, X = -1, Y = -1 };
+					}
+
 					Point maxValuePoint = Points.First();
 
 					foreach (var point in Points)

@@ -163,6 +163,53 @@ namespace pointStore
 			Assert.AreEqual(largestPoint, hold.LargestPoint);
 		}
 
+		[Test]
+		public void GetLargestPointInBoxTest1() //This name sucks
+		{
+			var hold = new Hold(1000, 0, 1000, 0, 0, 10);
+			var rand = new Random();
+
+			var box = new Box { Bottom = 50, Top = 950, Left = 50, Right = 950 };
+			var largestPoint = new Point { Value = -1 };
+
+			for (int i = 0; i < 10000; i++)
+			{
+				var point = new Point { Value = i, X = rand.Next(1001), Y = rand.Next(1001) };
+				if (pointIsInBox(point, box))
+				{
+					largestPoint = point; //each point has a larger value than the last
+				}
+				hold.AddPoint(point);
+			}
+
+			//If this happens it's a minor statistical miracle
+			Assert.AreNotEqual(-1, largestPoint.Value);
+
+			Assert.AreEqual(largestPoint, hold.GetLargestPointInBox(box));
+
+		}
+
+		private bool pointIsInBox(Point point, Box box)
+		{
+			if (point.X > box.Right)
+			{
+				return false;
+			}
+			if (point.X < box.Left)
+			{
+				return false;
+			}
+			if (point.Y > box.Top)
+			{
+				return false;
+			}
+			if (point.Y < box.Bottom)
+			{
+				return false;
+			}
+			return true;
+		}
+
 		//Test GetLargestPointInBox
 	}
 }
