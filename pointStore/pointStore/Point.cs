@@ -7,5 +7,11 @@
 		public int Y { get; set; }
 
 		public int Value { get; set; }
+
+		public bool IsInsideBox(Box box)
+		{
+			return X <= box.Right && X >= box.Left && Y <= box.Top && Y >= box.Bottom;
+		}
 	}
+
 }

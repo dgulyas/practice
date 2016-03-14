@@ -10,7 +10,7 @@ namespace pointStore
 		[Test]
 		public void addPointToHoldTest()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0, 10);
+			var hold = new Hold(100, 0, 100, 0, 10);
 			var point = new Point { X = 10, Y = 11, Value = 86 };
 
 			hold.AddPoint(point);
@@ -20,7 +20,7 @@ namespace pointStore
 		[Test]
 		public void holdStoresPointsTest()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0, 4);
+			var hold = new Hold(100, 0, 100, 0, 4);
 
 			Assert.IsTrue(hold.StoresPoints);
 			hold.AddPoint(new Point { X = 10, Y = 11, Value = 86 });
@@ -34,7 +34,7 @@ namespace pointStore
 		[Test]
 		public void CreateSubHoldsTest()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0, 1);
+			var hold = new Hold(100, 0, 100, 0, 1);
 			hold.AddPoint(new Point { Value = 10, Y = 90, X = 10 });
 			hold.AddPoint(new Point { Value = 10, Y = 10, X = 10 });
 
@@ -52,7 +52,7 @@ namespace pointStore
 		[Test]
 		public void CreateSubHoldsTestSkinny()
 		{
-			var hold = new Hold(100, 0, 2, 0, 0, 1);
+			var hold = new Hold(100, 0, 2, 0, 1);
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 80 });
 
@@ -71,7 +71,7 @@ namespace pointStore
 		[Test]
 		public void CreateSubHoldsTestVerticalLine()
 		{
-			var hold = new Hold(100, 0, 0, 0, 0, 1);
+			var hold = new Hold(100, 0, 0, 0, 1);
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 80 });
 
@@ -85,7 +85,7 @@ namespace pointStore
 		[Test]
 		public void CreateSubHoldsHoritintalLine()
 		{
-			var hold = new Hold(0, 0, 100, 0, 0, 1);
+			var hold = new Hold(0, 0, 100, 0, 1);
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
 			hold.AddPoint(new Point { Value = 10, X = 80, Y = 0 });
 
@@ -100,7 +100,7 @@ namespace pointStore
 		[Test]
 		public void CreateSubHoldPoint()
 		{
-			var hold = new Hold(0, 0, 0, 0, 0, 1);
+			var hold = new Hold(0, 0, 0, 0, 1);
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
 			hold.AddPoint(new Point { Value = 10, X = 0, Y = 0 });
@@ -112,7 +112,7 @@ namespace pointStore
 		[Test]
 		public void LargestPointSinglePoint()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0);
+			var hold = new Hold(100, 0, 100, 0);
 			var point = new Point { Value = 10, X = 0, Y = 0 };
 			hold.AddPoint(point);
 
@@ -122,7 +122,7 @@ namespace pointStore
 		[Test]
 		public void LargestPointBasicMultiplePoints()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0);
+			var hold = new Hold(100, 0, 100, 0);
 			var largestPoint = new Point { Value = 10, X = 0, Y = 0 };
 			hold.AddPoint(new Point { Value = 0, X = 10, Y = 0 });
 			hold.AddPoint(new Point { Value = 1, X = 20, Y = 0 });
@@ -136,7 +136,7 @@ namespace pointStore
 		[Test]
 		public void LargestPointSplitHold()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0, 3);
+			var hold = new Hold(100, 0, 100, 0, 3);
 			var largestPoint = new Point { Value = 10, X = 70, Y = 70 };
 			hold.AddPoint(largestPoint);
 			hold.AddPoint(new Point { Value = 0, X = 10, Y = 10 });
@@ -149,7 +149,7 @@ namespace pointStore
 		[Test]
 		public void LargestPoint1000Points()
 		{
-			var hold = new Hold(100, 0, 100, 0, 0, 10);
+			var hold = new Hold(100, 0, 100, 0, 10);
 			var rand = new Random();
 
 			for (int i = 0; i < 999; i++)
@@ -163,16 +163,19 @@ namespace pointStore
 			Assert.AreEqual(largestPoint, hold.LargestPoint);
 		}
 
-		[Test]
-		public void GetLargestPointInBoxTest1() //This name sucks
+		[TestCase(50, 950, 50, 950)]
+		[TestCase(500, 550, 0, 1000)]
+		[TestCase(0, 1000, 500, 550)]
+		public void GetLargestPointInBoxTest1(int boxBottom, int boxTop, int boxLeft, int boxRight) //This name sucks
 		{
-			var hold = new Hold(1000, 0, 1000, 0, 0, 10);
-			var rand = new Random();
+			var hold = new Hold(1000, 0, 1000, 0, 512);
+			var rand = new Random(11);
 
-			var box = new Box { Bottom = 50, Top = 950, Left = 50, Right = 950 };
-			var largestPoint = new Point { Value = -1 };
+			var box = new Box { Bottom = boxBottom, Top = boxTop, Left = boxLeft, Right = boxRight };
+			var largestPoint = new Point { Value = 0, X = boxRight, Y = boxTop };
+			hold.AddPoint(largestPoint);
 
-			for (int i = 0; i < 10000; i++)
+			for (int i = 0; i < 1000000; i++)
 			{
 				var point = new Point { Value = i, X = rand.Next(1001), Y = rand.Next(1001) };
 				if (pointIsInBox(point, box))
@@ -181,12 +184,9 @@ namespace pointStore
 				}
 				hold.AddPoint(point);
 			}
+			var tmp = hold.GetLargestPointInBox(box);
 
-			//If this happens it's a minor statistical miracle
-			Assert.AreNotEqual(-1, largestPoint.Value);
-
-			Assert.AreEqual(largestPoint, hold.GetLargestPointInBox(box));
-
+			Assert.AreEqual(largestPoint, tmp);
 		}
 
 		private bool pointIsInBox(Point point, Box box)
@@ -210,6 +210,5 @@ namespace pointStore
 			return true;
 		}
 
-		//Test GetLargestPointInBox
 	}
 }

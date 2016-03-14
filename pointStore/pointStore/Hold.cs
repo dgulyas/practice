@@ -18,8 +18,6 @@ namespace pointStore
 		public bool HoldIsAVerticalLine => RightBoundry == LeftBoundry;
 		public bool HoldIsAPoint => HoldIsAHorizontalLine && HoldIsAVerticalLine;
 
-		public int Level;
-
 		public Point LargestPoint;
 
 		//The origin is in the bottom left corner
@@ -30,7 +28,7 @@ namespace pointStore
 		public int RightBoundry;
 		public int LeftBoundry;
 
-		public Hold(int tb, int bb, int rb, int lb, int level, int maxPoints = 512)
+		public Hold(int tb, int bb, int rb, int lb, int maxPoints = 512)
 		{
 			if (tb < bb || rb < lb)
 			{
@@ -47,7 +45,6 @@ namespace pointStore
 			BottomBoundry = bb;
 			RightBoundry = rb;
 			LeftBoundry = lb;
-			Level = level;
 			MaxPoints = maxPoints;
 			LargestPoint = new Point { Value = int.MinValue, X = -1, Y = -1 };
 			Points = new List<Point>();
@@ -82,12 +79,15 @@ namespace pointStore
 			return p.X >= LeftBoundry && p.X <= RightBoundry && p.Y >= BottomBoundry && p.Y <= TopBoundry;
 		}
 
-		public void PrintData()
+		public void PrintData(int indentLevel = 0)
 		{
-			Console.WriteLine($"tb:{TopBoundry} bb{BottomBoundry} rb{RightBoundry} lb{LeftBoundry}");
+			Console.Write($"{new string(' ', indentLevel * 1)}");
+			Console.WriteLine($"tb:{TopBoundry} bb:{BottomBoundry} rb:{RightBoundry} lb:{LeftBoundry}");
+			Console.Write($"{new string(' ', indentLevel * 1)}");
 			Console.WriteLine($"StoresPoints:{StoresPoints}");
 			if (StoresPoints)
 			{
+				Console.Write($"{new string(' ', indentLevel * 1)}");
 				foreach (var point in Points)
 				{
 					Console.Write($"{point.X} {point.Y} {point.Value}, ");
@@ -98,14 +98,14 @@ namespace pointStore
 			{
 				foreach (var hold in Holds)
 				{
-					hold.PrintData();
+					hold.PrintData(indentLevel + 1);
 				}
 			}
 		}
 
 		public Point GetLargestPointInBox(Box box)
 		{
-			if (IsContainedInside(box))
+			if (IsContainedInsideBox(box))
 			{
 				return LargestPoint;
 			}
@@ -135,7 +135,7 @@ namespace pointStore
 
 					foreach (var point in Points)
 					{
-						if (point.Value > maxValuePoint.Value)
+						if (point.IsInsideBox(box) && point.Value > maxValuePoint.Value)
 						{
 							maxValuePoint = point;
 						}
@@ -148,21 +148,8 @@ namespace pointStore
 			return null;
 		}
 
-		public void print(string s, bool newLine = true)
-		{
-			var printString = $"{new string(' ', Level * 1)}{s}";
-			if (newLine)
-			{
-				Console.WriteLine(printString);
-			}
-			else
-			{
-				Console.Write(printString);
-			}
-		}
-
 		//Returns true if this hold is fully contained in this box
-		private bool IsContainedInside(Box box)
+		private bool IsContainedInsideBox(Box box)
 		{
 			return box.Bottom <= BottomBoundry && box.Top >= TopBoundry && box.Left <= LeftBoundry && box.Right >= RightBoundry;
 		}
@@ -221,22 +208,22 @@ namespace pointStore
 
 			if (HoldIsAHorizontalLine)
 			{
-				Holds.Add(new Hold(TopBoundry, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
-				Holds.Add(new Hold(TopBoundry, BottomBoundry, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
+				Holds.Add(new Hold(TopBoundry, BottomBoundry, xMiddle, LeftBoundry, MaxPoints));
+				Holds.Add(new Hold(TopBoundry, BottomBoundry, RightBoundry, xMiddlePlusOne, MaxPoints));
 				return;
 			}
 
 			if (HoldIsAVerticalLine)
 			{
-				Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, LeftBoundry, Level + 1, MaxPoints));
-				Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, LeftBoundry, Level + 1, MaxPoints));
+				Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, LeftBoundry, MaxPoints));
+				Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, LeftBoundry, MaxPoints));
 				return;
 			}
 
-			Holds.Add(new Hold(yMiddle, BottomBoundry, xMiddle, LeftBoundry, Level + 1, MaxPoints));
-			Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
-			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, xMiddle, LeftBoundry, Level + 1, MaxPoints));
-			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, xMiddlePlusOne, Level + 1, MaxPoints));
+			Holds.Add(new Hold(yMiddle, BottomBoundry, xMiddle, LeftBoundry, MaxPoints));
+			Holds.Add(new Hold(yMiddle, BottomBoundry, RightBoundry, xMiddlePlusOne, MaxPoints));
+			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, xMiddle, LeftBoundry, MaxPoints));
+			Holds.Add(new Hold(TopBoundry, yMiddlePlusOne, RightBoundry, xMiddlePlusOne, MaxPoints));
 		}
 
 		//This function is called when we need to send a point to one of the sub holds.
