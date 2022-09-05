@@ -1,0 +1,26 @@
+<script>
+
+// https://leetcode.com/problems/two-sum/
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+ var twoSum = function(nums, target) {
+    let indexMap = new Map() //naming is hard
+
+    for(let i = 0; i < nums.length; i++) {
+        curNum = nums[i]
+        matchingNum = target - curNum
+
+        if(indexMap.get(curNum) === undefined) {
+            indexMap.set(matchingNum, i)
+        } else {
+            return[indexMap.get(curNum), i]
+        }
+    }
+    return []
+};
+
+</script>
