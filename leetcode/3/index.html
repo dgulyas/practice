@@ -1,0 +1,35 @@
+<script>
+
+//https://leetcode.com/problems/longest-substring-without-repeating-characters/
+//This is n^2, and is probably the lowest effort solution.
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    longestSub = 0
+    for(var i = 0; i < s.length; i++){
+        result = longestSubStartingAt(s, i)
+        if(result > longestSub){
+            longestSub = result
+        }
+    }
+    return longestSub
+};
+
+function longestSubStartingAt(s, start) {
+    seenChars = new Set()
+    for(var i = start; i < s.length; i++){
+        currChar = s.charAt(i)
+        if(seenChars.has(currChar)){
+            return i - start
+        }
+
+        seenChars.add(currChar)
+    }
+
+    return s.length - start
+}
+
+</script>
