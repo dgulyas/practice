@@ -1,0 +1,50 @@
+<script>
+
+//https://leetcode.com/problems/verifying-an-alien-dictionary/
+
+/**
+ * @param {string[]} words
+ * @param {string} order
+ * @return {boolean}
+ */
+ var isAlienSorted = function(words, order) {
+    let lOrder = makeOrdering(order)
+    
+    for(var i = 0; i < words.length -1; i++){
+        if(!aIsBeforeB(words[i], words[i+1], lOrder)){
+            return false
+        }
+    }
+    return true
+};
+
+function aIsBeforeB(a, b, lOrder) {
+    for(var i = 0; i < a.length+1; i++){
+        aIndex = lOrder.get(a.charAt(i))
+        bIndex = lOrder.get(b.charAt(i))
+
+        if(aIndex == 0 && bIndex == 0){
+            //both words are identical
+            return true
+        }
+
+        if(aIndex < bIndex) {
+            return true
+        }
+        else if (aIndex > bIndex) {
+            return false
+        }
+    }
+    return null
+}
+
+function makeOrdering(order) {
+    let lOrder = new Map()
+    lOrder.set("", 0)
+    for(var i = 0; i < order.length; i++) {
+        lOrder.set(order.charAt(i), i+1)
+    }
+    return lOrder
+}
+
+</script>
