@@ -1,0 +1,46 @@
+<script>
+
+//https://leetcode.com/problems/sort-characters-by-frequency/
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var frequencySort = function(s) {
+    
+    //Make a map where (key:character, value:character count)
+    var charCount = new Map()
+    for(let i = 0; i < s.length; i++){
+        currentChar = s.charAt(i)
+        if(charCount.has(currentChar)){
+            currCount = charCount.get(currentChar)
+            charCount.set(currentChar, currCount + 1)
+        }else{
+            charCount.set(currentChar, 1)
+        }
+    }
+
+    //transform the map into an array of pairs that can be sorted
+    entries = Array.from(charCount.entries())
+
+    entries.sort(compareFn) //sort based on the count of each char
+
+    //using a string to build the output here is slow
+    //but  I don't want to spend time learning the best
+    //way to do it in javascript. C# has a string builder class.
+    outString = "" 
+    for(let i = 0; i < entries.length; i++){
+        for(let j = 0; j < entries[i][1]; j++){
+            outString += entries[i][0]
+        }
+    }
+
+    return outString
+
+};
+
+function compareFn(a, b){
+    return b[1] - a[1] // a - b so that it's descending order
+}
+
+</script>
