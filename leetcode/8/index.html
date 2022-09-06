@@ -1,0 +1,54 @@
+<script>
+
+//https://leetcode.com/problems/string-to-integer-atoi/
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var myAtoi = function(s) {
+    //step 1 (steps defined in problem description)
+    s = s.trimStart()
+
+    //step 2
+    signChar = s.charAt(0)
+    negative = false
+    if(signChar == '-'){
+        negative = true
+    }
+    if(signChar == '-' || signChar == '+'){
+        s = s.substring(1)
+    }
+
+    //step 3
+    int = 0
+    while(true){
+        nextChar = s.charAt(0)
+        if(!isCharANumber(nextChar)){
+            break
+        }
+        s = s.substring(1)
+        int = int*10 + parseInt(nextChar) //Is using parseInt cheating? Could use ascii value.
+    }
+
+    if(negative){
+        int = int * -1
+    }
+
+    //step 4
+    if(int > 2147483647){ //2^31 - 1
+        int = 2147483647
+    }else if(int < -2147483648){ //-2^31
+        int = -2147483648
+    }
+
+    //step 5
+    return int
+};
+
+//copied from stack overflow
+function isCharANumber(c) {
+    return c >= '0' && c <= '9';
+}
+
+</script>
