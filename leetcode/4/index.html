@@ -1,0 +1,40 @@
+<script>
+
+//https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number}
+ */
+var findMedianSortedArrays = function(nums1, nums2) {
+    state = {nums1:nums1, nums2:nums2, index1:0, index2:0}
+    
+    totalLength = nums1.length + nums2.length
+    middleIndex = totalLength / 2
+
+    //run through the first half of the numbers, ingnoring them.
+    for(let i = 1; i < middleIndex; i++){
+        getNext(state)
+    }
+
+    if(totalLength % 2 == 0){ // need to average the 2 middles
+        return (getNext(state) + getNext(state)) / 2.0
+    }
+
+    return getNext(state)
+};
+
+function getNext(s){    
+    nextNumber = undefined
+    if(s.index2 >= s.nums2.length || s.nums1[s.index1] < s.nums2[s.index2]){
+        s.index1++
+        nextNumber = s.nums1[s.index1 -1]
+    }else{
+        s.index2++
+        nextNumber = s.nums2[s.index2 -1]
+    }
+    return nextNumber
+}
+
+</script>
