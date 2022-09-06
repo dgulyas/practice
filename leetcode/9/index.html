@@ -1,0 +1,33 @@
+<script>
+
+//https://leetcode.com/problems/palindrome-number/
+
+//This is slow because it uses strings.
+//It would be much faster and take much less memory
+//if it stayed as an int. This is easier to read though.
+
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+    if(x < 0){
+        return false
+    }
+
+    num = x.toString()
+    while(true){
+        console.log(`${num}`)
+        if(num.length < 2){
+            return true
+        }
+
+        if(num.charAt(0) != num.charAt(num.length - 1)){
+            return false
+        }
+
+        num = num.substring(1, num.length - 1)
+    }
+};
+
+</script>
