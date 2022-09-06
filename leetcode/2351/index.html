@@ -1,0 +1,21 @@
+<script>
+
+// https://leetcode.com/problems/first-letter-to-appear-twice/
+
+/**
+ * @param {string} s
+ * @return {character}
+ */
+var repeatedCharacter = function(s) {
+    encounteredLetters = new Set()
+    for(let i = 0; i < s.length; i++){
+        nextLetter = s.charAt(i)
+        if(encounteredLetters.has(nextLetter)){
+            return nextLetter
+        }else{
+            encounteredLetters.add(nextLetter)
+        }
+    }
+};
+
+</script>
