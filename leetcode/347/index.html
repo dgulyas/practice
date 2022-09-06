@@ -1,0 +1,39 @@
+<script>
+
+//https://leetcode.com/problems/top-k-frequent-elements/
+
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function(nums, k) {
+    var charCount = new Map()
+    for(let i = 0; i < nums.length; i++){
+        currentChar = nums[i]
+        if(charCount.has(currentChar)){
+            currCount = charCount.get(currentChar)
+            charCount.set(currentChar, currCount + 1)
+        }else{
+            charCount.set(currentChar, 1)
+        }
+    }
+
+    entries = Array.from(charCount.entries())
+
+    entries.sort(compareFn)
+
+    outArray = []
+
+    for(let i = 0; i < k; i++){
+        outArray.push(entries[i][0])
+    }
+
+    return outArray
+};
+
+function compareFn(a, b){
+    return b[1] - a[1] // a - b so that it's descending order
+}
+
+</script>
