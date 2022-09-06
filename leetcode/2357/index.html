@@ -1,0 +1,16 @@
+<script>
+
+// https://leetcode.com/problems/make-array-zero-by-subtracting-equal-amounts/
+//The insight is that the answer will be the number of unique numbers in the array
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+ var minimumOperations = function(nums) {
+    uniqueNumbers = new Set(nums)
+    uniqueNumbers.delete(0)
+    return uniqueNumbers.size
+};
+
+</script>
