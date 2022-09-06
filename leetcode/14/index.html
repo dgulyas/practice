@@ -1,0 +1,29 @@
+<script>
+
+//https://leetcode.com/problems/longest-common-prefix/
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    prefix = ""
+    while(true){
+        if(strs[0].charAt(0) == ""){
+            return prefix
+        }
+
+        nextLetter = strs[0].charAt(0)
+
+        for(let i = 0; i < strs.length; i++){
+            if(strs[i].charAt(0) != nextLetter){
+                return prefix
+            }
+            strs[i] = strs[i].substring(1)
+        }
+
+        prefix = prefix + nextLetter
+    }    
+};
+
+</script>
