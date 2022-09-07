@@ -1,0 +1,30 @@
+<script>
+
+//https://leetcode.com/problems/generate-parentheses/
+    
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    validCombinations = []
+    recursiveGen(0, 0, n, "", validCombinations)
+    return validCombinations
+};
+
+function recursiveGen(numOpen, numClosed, n, currentString, validCombinations){
+    if(numClosed == n){
+        validCombinations.push(currentString)
+        return
+    }
+    
+    if(numOpen < n){
+        recursiveGen(numOpen + 1, numClosed, n, currentString + "(", validCombinations)
+    }
+    if(numClosed < numOpen){
+        recursiveGen(numOpen, numClosed + 1, n, currentString + ")", validCombinations)
+    }
+
+}
+    
+</script>
