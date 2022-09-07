@@ -1,0 +1,37 @@
+<script>
+
+//https://leetcode.com/problems/valid-parentheses/
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+ var isValid = function(s) {
+    var stack = []
+
+    for(let i = 0; i < s.length; i++){
+        currChar = s.charAt(i)
+        if(["{", "(", "["].includes(currChar)){
+            stack.push(currChar)
+        }else{
+            openingParan = stack.pop()
+            if(openingParan === undefined){
+                return false //ran out of opening parentheses
+            }
+            if(currChar == "}" && openingParan != "{"){
+                return false
+            }
+            if(currChar == ")" && openingParan != "("){
+                return false
+            }
+            if(currChar == "]" && openingParan != "["){
+                return false
+            }
+        }
+    }
+
+    //false if leftover opening parentheses
+    return stack.length == 0
+};
+
+</script>
