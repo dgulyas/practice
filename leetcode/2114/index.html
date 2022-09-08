@@ -1,0 +1,22 @@
+<script>
+
+//https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
+
+/**
+ * @param {string[]} sentences
+ * @return {number}
+ */
+var mostWordsFound = function(sentences) {
+    maxWords = 0
+
+    for(let i = 0; i < sentences.length; i++){
+        numWords = sentences[i].split(' ').length
+        if(numWords > maxWords){
+            maxWords = numWords
+        }
+    }
+
+    return maxWords
+};
+
+</script>
