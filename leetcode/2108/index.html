@@ -1,0 +1,19 @@
+<script>
+
+//https://leetcode.com/problems/find-first-palindromic-string-in-the-array/
+
+/**
+ * @param {string[]} words
+ * @return {string}
+ */
+var firstPalindrome = function(words) {
+    for(let i = 0; i < words.length; i++){
+        word = words[i]
+        reversedWord = word.split('').reverse().join('')
+        if(word == reversedWord){
+            return word
+        }
+    }
+    return ''    
+};
+</script>
