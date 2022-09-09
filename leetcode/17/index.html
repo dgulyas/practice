@@ -1,0 +1,41 @@
+<script>
+
+//https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    digitMap = {
+        '2':['a','b','c'],
+        '3':['d','e','f'],
+        '4':['g','h','i'],
+        '5':['j','k','l'],
+        '6':['m','n','o'],
+        '7':['p','q','r','s'],
+        '8':['t','u','v'],
+        '9':['w','x','y','z']
+    }
+    
+    digitArray = digits.split('')
+    strings = ['']
+
+    for(let i = 0; i < digitArray.length; i++){
+        digit = digitArray[i]
+        chars = digitMap[digit]
+        newStrings = []
+        for(let j = 0; j < strings.length; j++){
+            for(let k = 0; k < chars.length; k++){
+                newStrings.push(strings[j] + chars[k])
+            }
+        }
+        strings = newStrings
+    }
+    
+    if(strings.length == 1){
+        return []
+    }
+    return strings
+};
+</script>
