@@ -1,0 +1,64 @@
+<script>
+
+//https://leetcode.com/problems/maximum-swap/
+
+/**
+ * @param {number} num
+ * @return {number}
+ */
+var maximumSwap = function(num) {
+    sortedNumArray = Array.from(String(num), Number)
+    originalNumArray = Array.from(String(num), Number)
+
+    sortedNumArray = sortedNumArray.sort(function (a, b) {  return b-a;  })
+
+    //the first place where the arrays differ is the place we should swap
+    //with the next biggest number in the array not equal to the number
+    //we're swapping it with.
+    for(let i = 0; i < sortedNumArray.length; i++){
+        if(sortedNumArray[i] != originalNumArray[i]){
+            //the first digit we should swap is at index i
+            //find the number that's at i in the sorted array and swap
+            //it for the one that's there now. Start looking at the end
+            //because if there are repeated numbers we want the one
+            //closest to the end.
+            for(let j = sortedNumArray.length-1; j > i; j--){
+                if(originalNumArray[j] == sortedNumArray[i]){
+                    swap(originalNumArray,i,j)
+                }
+            }
+            break
+        }
+    }
+
+    return arrayToString(originalNumArray)
+};
+
+//deep comparison of two arrays
+function areEqual(a,b){
+    for(let i = 0; i < a.length; i++){
+        if(a[i] != b[i]){
+            return false
+        }
+    }
+    return true
+}
+
+//in array, swap the numbers at indicies i and j
+function swap(array, i, j){
+    tmp = array[i]
+    array[i] = array[j]
+    array[j] = tmp
+}
+
+//convert an array of single ints to an integer
+function arrayToString(a){
+    int = 0
+    for(let i = 0; i < a.length; i++){
+        int *= 10
+        int += a[i]
+    }
+    return int
+}
+
+</script>
