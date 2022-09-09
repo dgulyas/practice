@@ -1,0 +1,54 @@
+<script>
+
+//https://leetcode.com/problems/find-if-path-exists-in-graph/
+
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} source
+ * @param {number} destination
+ * @return {boolean}
+ */
+var validPath = function(n, edges, source, destination) {
+    if(n == 1){
+        return true
+    }
+    
+    edgeMap = {}
+    for(let i = 0; i < edges.length; i++){
+        edge = edges[i]
+        if(edgeMap[edge[0]] == null){
+            edgeMap[edge[0]] = []
+        }
+        edgeMap[edge[0]].push(edge[1])
+
+        if(edgeMap[edge[1]] == null){
+            edgeMap[edge[1]] = []
+        }        
+        edgeMap[edge[1]].push(edge[0])
+    }
+
+    visited = new Set()
+    nodesToLookAt = [source]
+
+    while(nodesToLookAt.length > 0){
+        currNode = nodesToLookAt.pop()
+        nodesConnectedToCurrentNode = edgeMap[currNode]
+        if(nodesConnectedToCurrentNode == null){
+            continue
+        }
+        for(let i = 0; i < nodesConnectedToCurrentNode.length; i++){
+            newNode = nodesConnectedToCurrentNode[i]
+            if(newNode == destination){
+                return true
+            }
+            if(!visited.has(newNode)){
+                visited.add(newNode)
+                nodesToLookAt.push(newNode)
+            }
+        }
+    }
+    return false
+};
+
+</script>
