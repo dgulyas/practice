@@ -1,0 +1,26 @@
+<script>
+
+//https://leetcode.com/problems/check-if-string-is-a-prefix-of-array/
+
+/**
+ * @param {string} s
+ * @param {string[]} words
+ * @return {boolean}
+ */
+var isPrefixString = function(s, words) {
+    while(s.length > 0){
+        if(words.length == 0){
+            return false
+        }
+        nextWord = words.shift()
+        startOfS = s.substring(0, nextWord.length)
+        s = s.substring(nextWord.length)
+        
+        if(startOfS != nextWord){
+            return false
+        }
+    }
+    return true 
+};
+
+</script>
