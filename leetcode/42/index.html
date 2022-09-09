@@ -1,0 +1,50 @@
+<script>
+
+//https://leetcode.com/problems/trapping-rain-water/
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ */
+var trap = function(height) {
+    
+    //This will record what the height of the water is in each column.
+    waterHeight = []
+    waterHeight.length = height.length
+
+    //This loop looks at the height of the water on the left 
+    //of the highest point. The water height to the right of
+    //the highest point will be overwritten in the next loop.
+    //This still works if there are >1 columns tied for
+    //highest point.
+    highestIndex = -1
+    currentHeight = 0
+    for(let i = 0; i < height.length; i++){
+        if(height[i] > currentHeight){
+            currentHeight = height[i]
+            highestIndex = i
+        }
+        waterHeight[i] = currentHeight
+    }
+
+    //This loop looks at the height of the water on the right
+    // of the highest point
+    currentHeight = 0
+    for(let i = height.length -1; i > highestIndex; i--){
+        if(height[i] > currentHeight){
+            currentHeight = height[i]
+        }
+        waterHeight[i] = currentHeight
+    }
+
+    //Now just sum all the differences between the water height
+    //and the 'dirt' column heights.
+    totalWater = 0
+    for(let i = 0; i < height.length; i++){
+        totalWater += waterHeight[i] - height[i]
+    }
+
+    return totalWater
+};
+
+</script>
