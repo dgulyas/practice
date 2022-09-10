@@ -1,0 +1,39 @@
+<script>
+
+//https://leetcode.com/problems/integer-to-roman/
+
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function(num) {
+    
+    romValues = [1000, 900, 500, 400, 100, 90, ]
+
+    romValues = []
+    romValues.push([1000, 'M'])
+    romValues.push([900, 'CM'])
+    romValues.push([500, 'D'])
+    romValues.push([400, 'CD'])
+    romValues.push([100, 'C'])
+    romValues.push([90, 'XC'])
+    romValues.push([50, 'L'])
+    romValues.push([40, 'XL'])
+    romValues.push([10, 'X'])
+    romValues.push([9, 'IX'])
+    romValues.push([5, 'V'])
+    romValues.push([4, 'IV'])
+    romValues.push([1, 'I'])
+
+    romString = ''
+    for(let i = 0; i < romValues.length; i++){
+        while(num >= romValues[i][0]){
+            romString = romString + romValues[i][1]
+            num -= romValues[i][0]
+        }
+    }
+    
+    return romString
+};
+
+</script>
