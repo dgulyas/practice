@@ -1,0 +1,54 @@
+<script>
+
+//https://leetcode.com/problems/roman-to-integer/
+
+//THis isn't super algorithmically elegent, but it's obvious how it works.
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function(s) {
+
+    //step 1: Replace the 2 char tokens with a single token
+    replacements = []
+    replacements.push(['IV', 'A'])
+    replacements.push(['IX', 'B'])
+    replacements.push(['XL', 'E'])
+    replacements.push(['XC', 'F'])
+    replacements.push(['CD', 'G'])
+    replacements.push(['CM', 'H'])
+
+    for(let i = 0; i < replacements.length; i++){
+       s = s.replace(replacements[i][0], replacements[i][1])
+    }
+    
+    romToInt = []
+
+    romToInt['A'] = 4
+    romToInt['B'] = 9
+    romToInt['E'] = 40
+    romToInt['F'] = 90
+    romToInt['G'] = 400
+    romToInt['H'] = 900
+
+    romToInt['I'] = 1
+    romToInt['V'] = 5
+    romToInt['X'] = 10
+    romToInt['L'] = 50
+    romToInt['C'] = 100
+    romToInt['D'] = 500
+    romToInt['M'] = 1000
+
+    //Step 2: Sum up the values of each token
+    roms = s.split('')
+    sum = 0
+
+    for(let i = 0; i < roms.length; i++){
+        sum += romToInt[roms[i]]
+    }
+
+    return sum
+};
+
+</script>
