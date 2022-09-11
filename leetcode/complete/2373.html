@@ -1,0 +1,31 @@
+<script>
+
+//https://leetcode.com/problems/largest-local-values-in-a-matrix/
+
+/**
+ * @param {number[][]} grid
+ * @return {number[][]}
+ */
+var largestLocal = function(grid) {
+    ans = []
+    for(let i = 0; i < grid.length - 2; i++){
+        ans[i] = []
+    }
+
+    for(let i = 0; i < ans.length; i++){
+        for(let j = 0; j < ans.length; j++){
+
+            for(let h = 0; h < 3; h++){
+                for(let k = 0; k < 3; k++){
+                    if(ans[i][j] === undefined || ans[i][j] < grid[h+i][j+k]){
+                        ans[i][j] = grid[h+i][j+k]
+                    }
+                }
+            }
+        }
+    }
+
+    return ans
+};
+
+</script>
