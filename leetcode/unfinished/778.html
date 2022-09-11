@@ -25,7 +25,7 @@ var swimInWater = function(grid) {
     //We could binary search through the depths, instead of iterating from lowest
     //to highest, but that's a lot of work.
 
-    //build a hashmap where key:depth value: coordinates of squares at that level
+    //build a hashmap where key:depth value:'coordinates of squares at that level'
     //so when the water is raised to a certain depth we know which squares
     //to add to the graph
     squaresByDepth = {}
@@ -53,15 +53,41 @@ var swimInWater = function(grid) {
             reachableSquares[square[0]][square[1]] = true
         }
         console.log(reachableSquares)
-        if(pathExists(reachableSquares)){
+        if(reachableSquares[0][0] == true && pathExists(reachableSquares)){
             return depth
         }
     }
 
 };
 
+//Assumes square [0,0] is swimmable
 function pathExists(graph){
+    neighbours = [[1,0], [0,1], [-1,0], [0,-1]]
     
+    visited = new Set()
+    toExplore = []
+    toExplore.push([0,0])
+    while(toExplore.length > 0){
+        s = toExplore.shift()
+
+        for(let i = 0; i < neighbours.length; i++){
+            n = neighbours[i]
+            x = s[0]+n[0]
+            y = s[1]+n[1]
+            if(x < 0 || x >= graph.length){
+                continue
+            }
+            if(y < 0 || y >= graph.length){
+                continue
+            }
+            if()
+
+        }
+
+
+        visited.add(s)
+    }
+
 }
 
 </script>
