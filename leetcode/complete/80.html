@@ -1,0 +1,27 @@
+<script>
+
+//https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    offset = 0
+    prevInt = 'a'
+    prevPrevInt = 'a'
+    
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] == prevInt && nums[i] == prevPrevInt){
+            offset += 1
+        }
+        else{
+            prevPrevInt = prevInt
+            prevInt = nums[i]
+            nums[i-offset] = nums[i]
+        }
+    }
+    return nums.length - offset
+};
+
+</script>
