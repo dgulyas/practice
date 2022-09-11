@@ -1,0 +1,50 @@
+<script>
+
+//https://leetcode.com/problems/single-number/
+
+//This answer is O(n), but uses more memory
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    count = new Map()
+    for(let i = 0; i < nums.length; i++){
+        if(count.has(nums[i])){
+            count.set(nums[i], 2)
+        }
+        else{
+            count.set(nums[i], 1)
+        }
+    }
+
+    for(var [key, value] of count){
+        if(value == 1){
+            return key
+        }
+    }
+};
+
+//This answer takes 30x as long O(n^2), but uses less memory
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+// var singleNumber = function(nums) {
+//     for(let i = 0; i < nums.length; i++){
+//         if(nums[i] !== undefined){
+//             foundTwin = false
+//             for(let j = i+1; j < nums.length; j++){
+//                 if(nums[i] == nums[j]){
+//                     foundTwin = true
+//                     nums[j] = undefined
+//                 }
+//             }
+//             if(!foundTwin){
+//                 return nums[i]
+//             }
+//         }
+//     }
+// };
+
+</script>
