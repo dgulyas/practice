@@ -1,0 +1,26 @@
+<script>
+//https://leetcode.com/problems/check-if-a-parentheses-string-can-be-valid/
+
+/**
+ * @param {string} s
+ * @param {string} locked
+ * @return {boolean}
+ */
+var canBeValid = function(s, locked) {
+    if(s.length % 2 == 1){
+        return false
+    }
+
+    numLockedOpening = 0
+    numUnlocked = 0
+    for(let i = 0; i < s.length; i++){
+        if(locked[i] == 0){
+            numUnlocked += 1
+        }
+        if(locked[i] == 1     ){}
+    }
+
+};
+
+
+</script>

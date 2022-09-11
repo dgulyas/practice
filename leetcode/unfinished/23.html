@@ -1,0 +1,44 @@
+<script>
+
+//https://leetcode.com/problems/merge-k-sorted-lists/
+
+//This is going to be n^2 since I don't want to make a heap of lists to make is nlogn
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function(lists) {
+    
+    sortedList = new ListNode()
+    smallestValue = -10001 //lower than min value given in problem
+    smallestValueIndex = -1
+
+    nonEmptyListExists = false
+    do{
+        for(let i = 0; i < lists.length; i++){
+            if(lists[i].value !== undefined){
+                nonEmptyListExists = true
+                if(lists[i].value < smallestValue){
+                    smallestValue = lists[i].value
+                    smallestValueIndex = i
+                }
+            }
+        }
+        if(nonEmptyListExists){
+            sortedList.value = lists[smallestValueIndex].value
+            sortedList.next = new ListNode()
+            lists[smallestValueIndex] = lists[smallestValueIndex].next
+        }
+    }while(nonEmptyListExists)
+
+    return sortedList
+};
+</script>

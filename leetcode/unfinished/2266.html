@@ -1,0 +1,35 @@
+<script>
+
+//https://leetcode.com/problems/count-number-of-texts/
+
+//c[n] = c[n-1] + c[n-2] + c[n-3]
+
+/**
+ * @param {string} pressedKeys
+ * @return {number}
+ */
+ var countTexts = function(pressedKeys) {
+    segLengths = []
+    currLength = 1
+    prevNum = pressedKeys[0]
+    for(let i = 1; i < pressedKeys.length; i++){
+        if(pressedKeys[i] != prevNum){
+            segLengths.push([currLength, prevNum])
+            currLength = 1
+            prevNum = pressedKeys[i]
+        }else{
+            currLength += 1
+        }
+    }
+    segLengths.push([currLength, prevNum])
+
+
+
+
+
+    return segLengths
+};
+
+function getNumOptions(n)
+
+</script>
