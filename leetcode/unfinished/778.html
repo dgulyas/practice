@@ -1,0 +1,67 @@
+<script>
+
+//https://leetcode.com/problems/swim-in-rising-water/
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var swimInWater = function(grid) {
+    depths = new Set()
+    for (row of grid) for (height of row){
+        depths.add(height)
+    }
+
+    depths = new Array(...depths).sort(function (a, b) {return a - b;})
+
+    //The level that the water is currently at. 
+    //depths[currDepthIndex] == water level
+    currDepthIndex = -1    
+    
+    //We're going to raise the water one level at a time, each time adding
+    //any new reachable squares to the graph.
+    //Then we'll run BFS from the starting square and see if there's a path
+    //to the end square.
+    //We could binary search through the depths, instead of iterating from lowest
+    //to highest, but that's a lot of work.
+
+    //build a hashmap where key:depth value: coordinates of squares at that level
+    //so when the water is raised to a certain depth we know which squares
+    //to add to the graph
+    squaresByDepth = {}
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            depth = grid[i][j]
+            if(squaresByDepth[depth] == undefined){
+                squaresByDepth[depth] = []
+            }
+            squaresByDepth[depth].push([i,j])
+        }
+    }
+
+    //initialize empty graph
+    reachableSquares = []
+    for(let i = 0; i < grid.length; i++){
+        reachableSquares[i] = []
+    }
+
+    for(let i = 0; i < depths.length; i++){
+        depth = depths[i]
+        //add squares at depth[i] to the graph
+        for(let j = 0; j < squaresByDepth[depth].length; j++){
+            square = squaresByDepth[depth][j]
+            reachableSquares[square[0]][square[1]] = true
+        }
+        console.log(reachableSquares)
+        if(pathExists(reachableSquares)){
+            return depth
+        }
+    }
+
+};
+
+function pathExists(graph){
+    
+}
+
+</script>
