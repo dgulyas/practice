@@ -1,0 +1,22 @@
+<script>
+
+//https://leetcode.com/problems/n-th-tribonacci-number/
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function(n) {
+    fibs = []
+    fibs[0] = 0
+    fibs[1] = 1
+    fibs[2] = 1
+
+    for(let i = 3; i <= n; i++){
+        fibs[i] = fibs[i-1] + fibs[i-2] + fibs[i-3]
+    }
+
+    return fibs[n]
+};
+
+</script>
