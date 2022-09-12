@@ -1,0 +1,22 @@
+<script>
+
+//https://leetcode.com/problems/climbing-stairs/
+
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function(n) {
+    ways = [] //ways[i] == how many ways to climb i stairs
+    
+    ways[1] = 1
+    ways[2] = 2
+
+    for(let i = 3; i <= n; i++){
+        ways[i] = ways[i-1] + ways[i-2]
+    }
+
+    return ways[n]
+};
+
+</script>
