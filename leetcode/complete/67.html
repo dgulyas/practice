@@ -1,0 +1,52 @@
+<script>
+
+//https://leetcode.com/problems/add-binary/
+
+
+//This code is inefficient.
+//It doesn't need an extra array for the solution
+//and it could do more math in order to avoid
+//prepending zeros to the shorter array.
+//It also probably doens't convert between types
+//efficiently.
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function(a, b) {
+    a = a.split('')
+    b = b.split('')
+
+    if(a.length < b.length){
+        zeros = new Array(b.length - a.length).fill(0)
+        a = zeros.concat(a)
+    }
+
+    if(a.length > b.length){
+        zeros = new Array(a.length - b.length).fill(0)
+        b = zeros.concat(b)
+    }
+
+    currIndex = a.length - 1
+    carry = 0
+
+    sum = []
+    while(currIndex >= 0){
+        sum[currIndex] = parseInt(a[currIndex]) + parseInt(b[currIndex]) + carry
+        carry = 0
+        if(sum[currIndex] > 1){
+            carry = 1
+            sum[currIndex] -= 2
+        }
+        currIndex -= 1
+    }
+
+    if(carry > 0){
+        sum.unshift(1)
+    }
+
+    return sum.toString().replaceAll(',', '')
+};
+
+</script>
