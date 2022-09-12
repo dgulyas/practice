@@ -1,0 +1,39 @@
+<script>
+
+//https://leetcode.com/problems/search-insert-position/
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    if(target > nums[nums.length - 1]){
+        return nums.length
+    }
+    if(target <= nums[0]){
+        return 0
+    }
+    
+    left = 0
+    right = nums.length - 1
+
+    while(true){
+        guess = Math.floor((right + left)/2)
+        if(target == nums[guess]){
+            return guess
+        }
+        else if (target > nums[guess]){
+            left = guess
+        }
+        else{
+            right = guess
+        }
+
+        if(left + 1 == right){
+            return left + 1
+        }
+    }
+};
+
+</script>
