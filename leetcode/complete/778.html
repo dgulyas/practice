@@ -2,11 +2,17 @@
 
 //https://leetcode.com/problems/swim-in-rising-water/
 
+//This solution isn't great.
+//It should just be BFS but the queue of next nodes to explore is ordered by depth
 /**
  * @param {number[][]} grid
  * @return {number}
  */
 var swimInWater = function(grid) {
+    if(grid.length == 1){
+        return grid[0][0]
+    }
+    
     depths = new Set()
     for (row of grid) for (height of row){
         depths.add(height)
@@ -52,7 +58,7 @@ var swimInWater = function(grid) {
             square = squaresByDepth[depth][j]
             reachableSquares[square[0]][square[1]] = true
         }
-        console.log(reachableSquares)
+        //console.log(reachableSquares)
         if(reachableSquares[0][0] == true && pathExists(reachableSquares)){
             return depth
         }
@@ -61,33 +67,54 @@ var swimInWater = function(grid) {
 };
 
 //Assumes square [0,0] is swimmable
-function pathExists(graph){
-    neighbours = [[1,0], [0,1], [-1,0], [0,-1]]
-    
-    visited = new Set()
+function pathExists(graph){    
+    start = [0,0]
+    end = [graph.length - 1, graph.length - 1]
+
     toExplore = []
-    toExplore.push([0,0])
+    toExplore.push(start)
+    
+    visited = new Set() //Stores the toString of coords since Set can't do deep comparison
+    visited.add(start.toString())
+
     while(toExplore.length > 0){
         s = toExplore.shift()
 
+        neighbours = generateNeighbours(s, graph.length)
         for(let i = 0; i < neighbours.length; i++){
             n = neighbours[i]
-            x = s[0]+n[0]
-            y = s[1]+n[1]
-            if(x < 0 || x >= graph.length){
-                continue
+            
+            if(!graph[n[0]][n[1]]){
+                continue //square is underwater
             }
-            if(y < 0 || y >= graph.length){
-                continue
+            if(n[0] == end[0] && n[1] == end[1]){
+                return true //We've found a path to the end square
             }
-            if()
+            if(visited.has(n.toString())){
+                continue //already visited n. Can ignore it.
+            }
 
+            visited.add(n.toString())
+            toExplore.push(n)
         }
-
-
-        visited.add(s)
     }
+    return false
+}
 
+//returns the neighbours that are within an nxn square grid
+function generateNeighbours(square, n){
+    possibleDirections = [[1,0], [0,1], [-1,0], [0,-1]]
+    valid = []
+
+    for(let i = 0; i < possibleDirections.length; i++){
+        d = possibleDirections[i]
+        x = square[0]+d[0]
+        y = square[1]+d[1]
+        if(x >= 0 && x < n && y >= 0 && y < n){
+            valid.push([x,y])
+        }
+    }
+    return valid
 }
 
 </script>
