@@ -1,0 +1,30 @@
+<script>
+
+//https://leetcode.com/problems/sqrtx/
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var mySqrt = function(x) {
+    low = 0 //lower bound
+    high = 46341
+
+    while(low != high){
+        target = Math.floor((low + high)/2)
+        targetResult = target * target
+        targetPlus1Result = (target+1) * (target+1)
+        if(targetResult <= x && targetPlus1Result > x){
+            return target
+        }
+
+        if(targetResult > x){
+            high = target - 1
+        }
+        else{
+            low = target + 1
+        }
+    }
+    return low
+};
+</script>
