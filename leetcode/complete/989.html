@@ -1,0 +1,48 @@
+<script>
+
+//https://leetcode.com/problems/add-to-array-form-of-integer/
+
+//This is the exact same solution as problem 67
+//except for decimal, not binary.
+//The same issues exist (refer to comments in 67.html)
+
+/**
+ * @param {number[]} num
+ * @param {number} k
+ * @return {number[]}
+ */
+var addToArrayForm = function(a, k) {
+    b = k.toString().split('')
+
+    if(a.length < b.length){
+        zeros = new Array(b.length - a.length).fill(0)
+        a = zeros.concat(a)
+    }
+
+    if(a.length > b.length){
+        zeros = new Array(a.length - b.length).fill(0)
+        b = zeros.concat(b)
+    }
+
+    currIndex = a.length - 1
+    carry = 0
+
+    sum = []
+    while(currIndex >= 0){
+        sum[currIndex] = parseInt(a[currIndex]) + parseInt(b[currIndex]) + carry
+        carry = 0
+        if(sum[currIndex] > 9){
+            carry = 1
+            sum[currIndex] -= 10
+        }
+        currIndex -= 1
+    }
+
+    if(carry > 0){
+        sum.unshift(1)
+    }
+
+    return sum
+};
+
+</script>
