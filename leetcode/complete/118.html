@@ -1,0 +1,27 @@
+<script>
+
+//https://leetcode.com/problems/pascals-triangle/
+
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function(numRows) {
+    p = []
+    p[0] = [1]
+
+    for(let i = 1; i < numRows; i++){
+        nextRow = []
+        nextRow[0] = 1
+        nextRow[i] = 1
+        for(let j = 1; j < i; j++){
+            prevRow = i-1
+            nextRow[j] = p[prevRow][j-1] + p[prevRow][j]
+        }
+        p.push(nextRow)
+    }
+    
+    return p
+};
+
+</script>
