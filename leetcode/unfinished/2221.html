@@ -1,0 +1,47 @@
+<script>
+
+//https://leetcode.com/problems/find-triangular-sum-of-an-array/
+
+//this doesn't work when nums is a very long array
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var triangularSum = function(nums) {
+    tSum = 0
+    pRow = getPascalRow(nums.length - 1)
+
+    for(let i = 0; i < nums.length; i++){
+        tSum += nums[i] * (pRow[i] % 10)
+        tSum = tSum % 10
+    }
+
+    return tSum
+};
+
+//This is my solution to problem 119
+/**
+ * @param {number} rowIndex
+ * @return {number[]}
+ */
+var getPascalRow = function(rowIndex) {
+    if(rowIndex == 0){
+        return [1]
+    }
+    if(rowIndex == 1){
+        return[1,1]
+    }
+
+    row = [1,1]
+    for(let i = 2; i <= rowIndex; i++){
+        row.unshift(1)
+        for(let j = 1; j < row.length - 1; j++){
+            row[j] = row[j] + row[j+1]
+        }
+    }
+    return row
+};
+
+
+</script>
