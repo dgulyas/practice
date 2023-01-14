@@ -4,6 +4,9 @@ bin/
 Release/
 Debug/
 
+# Visual Studio folder
+*.vs
+
 # User specific VS/R# files/folders
 _ReSharper.Advatar/
 *.user
