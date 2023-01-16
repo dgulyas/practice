@@ -16,10 +16,16 @@
 
 			var u = Parser1.Parse("2+(4+1)*(3*(5+2)*(2+6)+10)");
 			var v =                2+(4+1)*(3*(5+2)*(2+6)+10);
-
+			Console.WriteLine("Parser 1");
 			Console.WriteLine(u + " == " + v);
-			//Console.ReadLine();
-		}
+
+			Console.WriteLine();
+			Console.WriteLine("Parser 2");
+            u = Parser2.Parse("2+(4+1)*(3*(5+2)*(2+6)+10)");
+            v =                2+(4+1)*(3*(5+2)*(2+6)+10);
+            Console.WriteLine(u + " == " + v);
+            //Console.ReadLine();
+        }
 
 	}
 }

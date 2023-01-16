@@ -1,29 +1,35 @@
 namespace parserTest
 {
 	/// <summary>
-	/// This code is garbage, but it does parse and solve math
-	/// where allowed symbols are [0-9, +, *, (, )]
-	/// The functions are heavily dependant on the guarantees
-	/// given by the other functions and there are probably a
-	/// bunch of edge cases that break it.
+	/// This code is less garbage than parser 1.
+	/// It iterates through the string, extracting the
+	/// parts of the string contained inside the innermost
+	/// ()'s. It then solves that chunk and concatenates
+	/// the solution back into the string where the ()'s
+	/// were until there are no ()'s left.
 	/// </summary>
 	public static class Parser2
 	{
 		public static int Parse(string s)
 		{
-			var stack = Split(s);
-			var cur = "";
-			do
+			var openParenStack = new Stack<int>();
+
+			for(int i = 0; i < s.Length; i++)
 			{
-				cur = stack[stack.Count -1] + cur;
-				stack.RemoveAt(stack.Count-1);
+				if (s[i] == '(')
+				{
+					openParenStack.Push(i);
+				}
+				else if (s[i] == ')')
+				{
+					var matchingOpenindex = openParenStack.Pop();
+					(var first, var second, var third) = TriSplit(s, matchingOpenindex, i);
+					s = first + Calc(second) + third;
+					i = matchingOpenindex - 1;
+                }
+			}
 
-				(var start, var end) = BreakString(cur);
-
-				cur = Calc(start).ToString() + end;
-			}while (stack.Count > 0);
-
-			return int.Parse(cur);
+			return Calc(s); //s has no () left. We can calc the whole thing.
 		}
 
 		public static (string, string, string) TriSplit(string s, int start, int end){
@@ -47,28 +53,6 @@ namespace parserTest
 		}
 
 		/// <summary>
-		/// If the string starts with (, break out the math inside
-		/// the first set of () and return that as start. Return
-		/// the rest of the math after the first () as end.
-		/// </summary>
-		/// <param name="cur"></param>
-		/// <returns></returns>
-		private static (string, string) BreakString(string cur)
-		{
-			var start = cur;
-			var end = "";
-
-			if (cur[0] == '(')
-			{
-				var breakIndex = cur.IndexOf(')');
-				start = cur.Substring(1, breakIndex-1);
-				end = cur.Substring(breakIndex+1, cur.Length - breakIndex-1);
-			}
-
-			return (start, end);
-		}
-
-		/// <summary>
 		/// Calculates the answer for a string of additions and multiplications
 		/// </summary>
 		/// <param name="s"></param>
@@ -89,27 +73,5 @@ namespace parserTest
 			return sum;
 		}
 
-
-		/// <summary>
-		/// Equivalent to s.split( '(' ) but the ( is included in the token
-		/// </summary>
-		/// <param name="s">The string to split</param>
-		/// <returns></returns>
-		public static List<string> Split(string s, char c = '(')
-		{
-			var list = new List<string>();
-			var cur = "" + s[0];
-			for(int i = 1; i < s.Length; i++)
-			{
-				if(s[i] == c){
-					list.Add(cur);
-					cur = "";
-				}
-				cur += s[i];
-			}
-			list.Add(cur);
-
-			return list;
-		}
 	}
 }
