@@ -1,0 +1,25 @@
+<script>
+
+// https://leetcode.com/problems/two-sum/
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+ var findCelebrity = function(numPeople) {
+
+};
+
+
+/**
+ * Start asking person 0 if they know person 1  then 2 then 3 ect.  Once you find someone they know (k), jump to k and start asking them if they know anyone from k+1 to n-1. Keep jumping to the new person until you get to n-1.
+
+This will walk the graph from person to person, until you meet the potential celebrity, and keep you there because the celebrity doesn't know anyone. But we're not sure they're a celebrity yet.
+
+Loop through everyone, asking them if they know they potential celebrity, and do a second loop asking if the celebrity knows anyone. If anyone answers wrong, they're not the celebrity, and there is no celebrity.
+
+This involves 3 loops total so it's O(n).
+*/
+
+</script>
