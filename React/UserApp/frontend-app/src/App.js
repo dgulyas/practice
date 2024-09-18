@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+function User({user}){
+  return(
+    <li key={user}>
+      FirstName: {user.FirstName}
+    </li>
+  );
+}
+
+function UserList({users}){
+  const userList = users.map((userInstance, index) => {
+    return ( <User user={userInstance}/> );
+  });
+
+  return(
+    <ol>
+      {userList}
+    </ol>
+  );
+}
 
 function App() {
+  var mockUsers = [{"FirstName":"Stan","LastName":"War","MailingAddress":"123 Fake Street","EmailAddress":"aaaa@gmail.com"},{"FirstName":"Bob","LastName":"Peace","MailingAddress":"123 Real Street","EmailAddress":"bbcb@gmail.com"},{"FirstName":"Josh","LastName":"Stasis","MailingAddress":"123 Sureal Street","EmailAddress":"cccc@gmail.com"}];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <UserList users={mockUsers}/>
     </div>
   );
 }
