@@ -1,10 +1,11 @@
-namespace DTOs.User
+namespace BackendApi.DTOs
 {
     public class User
     {
-        public string FirstName {get; set;}
-        public string LastName {get; set;}
-        public string MailingAddress {get; set;}
-        public string EmailAddress {get; set;}
+        public int Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? MailingAddress { get; set; }
+        public string? EmailAddress { get; set; }
     }
 }

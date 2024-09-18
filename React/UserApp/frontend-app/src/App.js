@@ -35,7 +35,9 @@ function App() {
     });
   }, [serverUrl]);
 
+  //For testing
   //var mockUsers = [{"FirstName":"Stan","LastName":"War","MailingAddress":"123 Fake Street","EmailAddress":"aaaa@gmail.com"},{"FirstName":"Bob","LastName":"Peace","MailingAddress":"123 Real Street","EmailAddress":"bbcb@gmail.com"},{"FirstName":"Josh","LastName":"Stasis","MailingAddress":"123 Sureal Street","EmailAddress":"cccc@gmail.com"}];
+
   return (
     <div>
       <UserList users={users}/>
