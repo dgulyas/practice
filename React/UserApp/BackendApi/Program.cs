@@ -1,10 +1,12 @@
 using System.Text.Json;
 using BackendApi;
-using BackendApi.DTOs;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using BackendApi.ORM;
+using BackendApi.Adapter;
 
 
-var users = TestData.CreateUsers();
+//var users = TestData.CreateUsers();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<UsersDb>(options => options.UseInMemoryDatabase("items"));
 builder.Services.AddSwaggerGen(c =>
 {
      c.SwaggerDoc("v1", new OpenApiInfo {
@@ -26,8 +29,6 @@ builder.Services.AddSwaggerGen(c =>
          Description = "Generic CRUD API",
          Version = "v1" });
 });
-
-
 
 var app = builder.Build();
 app.UseCors("AllowAll");
@@ -41,8 +42,12 @@ if (app.Environment.IsDevelopment())
    });
 }
 
-app.MapGet("/Users", () => JsonSerializer.Serialize(users));
-
+app.MapGet("/Users", async (UsersDb db) => 
+    {
+        var ormUsers = await db.Users.ToListAsync();
+        var dtoUsers = UserAdapter.OrmsToDtos(ormUsers);
+        return JsonSerializer.Serialize(dtoUsers);
+    });
 app.Run();
 
 
