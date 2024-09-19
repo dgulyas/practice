@@ -7,6 +7,8 @@ using BackendApi.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("Users") ?? "Data Source=Users.db";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -18,7 +20,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<UsersDb>(options => options.UseInMemoryDatabase("items"));
+builder.Services.AddSqlite<UsersDb>(connectionString);
 builder.Services.AddSwaggerGen(c =>
 {
      c.SwaggerDoc("v1", new OpenApiInfo {

@@ -34,3 +34,6 @@ resultsUnitTestsAdmin.xml
 
 #React
 node_modules/
+
+#sqlite
+*.db
