@@ -6,10 +6,11 @@ namespace BackendApi.Adapter
     public static class UserAdapter{
         public static UserDTO OrmToDto(UserORM user){
             return new UserDTO{
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
-                MailingAddress = user.EmailAddress
+                MailingAddress = user.MailingAddress
             };
         }
 
@@ -19,10 +20,11 @@ namespace BackendApi.Adapter
 
         public static UserORM DtoToOrm(UserDTO user){
             return new UserORM{
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
-                MailingAddress = user.EmailAddress
+                MailingAddress = user.MailingAddress
             };
         }
 
