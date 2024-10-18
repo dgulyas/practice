@@ -11,21 +11,18 @@ function UserListTable({users}){
 	return (
 		<div>
 			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 500 }} aria-label="simple table">
+				<Table sx={{ minWidth: 500 }} size="small">
 					<TableHead>
 						<TableRow>
 							<TableCell>First Name</TableCell>
-							<TableCell align="right">Last Name</TableCell>
+							<TableCell>Last Name</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{users.map((user) => (
-							<TableRow
-							key={user.EmailAddress}
-							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-							>
-								<TableCell component="th" scope="row">{user.FirstName}</TableCell>
-								<TableCell align="right">{user.LastName}</TableCell>
+							<TableRow key={user.EmailAddress}>
+								<TableCell>{user.FirstName}</TableCell>
+								<TableCell>{user.LastName}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -34,8 +31,5 @@ function UserListTable({users}){
 		</div>
 	);
 }
-
-
-
 
 export default UserListTable;
