@@ -28,7 +28,7 @@ function App() {
         Users
       </Typography>
       <Box component="section" sx={{ p:3, width: 500 }}>
-      <UserListTable users={users}/>
+        <UserListTable users={users}/>
       </Box>
     </div>
   );
