@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
 
 
 function UserListTable({users}){
@@ -14,6 +15,7 @@ function UserListTable({users}){
 				<Table sx={{ minWidth: 500 }} size="small">
 					<TableHead>
 						<TableRow>
+							<TableCell />
 							<TableCell>First Name</TableCell>
 							<TableCell>Last Name</TableCell>
 						</TableRow>
@@ -21,6 +23,7 @@ function UserListTable({users}){
 					<TableBody>
 						{users.map((user) => (
 							<TableRow key={user.EmailAddress}>
+								<TableCell padding="checkbox"><Checkbox /></TableCell>
 								<TableCell>{user.FirstName}</TableCell>
 								<TableCell>{user.LastName}</TableCell>
 							</TableRow>
