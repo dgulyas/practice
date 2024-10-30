@@ -35,5 +35,8 @@ resultsUnitTestsAdmin.xml
 #React
 node_modules/
 
+#nextJs
+.next/
+
 #sqlite
 *.db
